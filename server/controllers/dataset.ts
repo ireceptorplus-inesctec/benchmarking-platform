@@ -3,7 +3,7 @@ import Dataset from '../models/dataset';
 import * as jwt from 'jsonwebtoken';
 
 class DatasetCtrl extends BaseCtrl {
-    model = Daongod --dbpath databasetaset;
+    model = Dataset;
 
     // Get all
     getAll = async (req, res) => {
