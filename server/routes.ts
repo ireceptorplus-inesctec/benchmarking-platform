@@ -73,6 +73,7 @@ function setRoutes(app) {
 
     // Tools
     router.route('/tools').get(toolCtrl.getAll);
+    router.route('/tools').post(toolCtrl.insert);
 
 
     // Apply the routes to our application with the prefix /api
