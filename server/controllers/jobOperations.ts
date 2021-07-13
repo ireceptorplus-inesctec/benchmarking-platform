@@ -50,9 +50,10 @@ class JobOperations {
 
             // 4 prepare germlines
             // currently a snapshot, later to generate from db
-            fse.copySync(path.join(__dirname, '../configurations/seeds/germlines'), germliDir);
 
-            const dockerPath = path.join(__dirname, '../' + fullJobObj.tool.pathCmd);
+            fse.copySync(path.resolve('./', 'server/configurations/seeds/germlines'), germliDir);
+
+            const dockerPath = path.resolve('./', 'server/' + fullJobObj.tool.pathCmd);
             const dockerBuildCmd = 'docker build -t ' + fullJobObj.tool._id + ' ' + dockerPath;
             console.log(dockerBuildCmd);
             exec(dockerBuildCmd, (error, stdout, stderr) => {
