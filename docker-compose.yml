@@ -12,12 +12,11 @@ services:
         ports:
         - 27017:27017
     nodedev:
-        image: node:14
+        build: .
         volumes:
         - .:/usr/src/service
         - nodemodules:/usr/src/service/node_modules
         working_dir: /usr/src/service
-        command: bash -c "npm i -g @angular/cli && npm install && npm run dev"
         ports:
         - 3000:3000
         - 4200:4200
