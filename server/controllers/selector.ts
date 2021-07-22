@@ -43,14 +43,6 @@ class SelectorCtrl extends BaseCtrl {
             for (const doc of docs) {
                 const docObject = doc._doc;
 
-                const vGenes = _.where(docObject.genes, {type: 'vgenes'});
-                const dGenes = _.where(docObject.genes, {type: 'dgenes'});
-                const jGenes = _.where(docObject.genes, {type: 'jgenes'});
-
-                docObject.vgenes = vGenes.length;
-                docObject.dgenes = dGenes.length;
-                docObject.jgenes = jGenes.length;
-
                 docObject.createdDate = moment(docObject.createdDate).format('D/M/YYYY HH:mm');
 
                 docsToReturn.push(docObject);
