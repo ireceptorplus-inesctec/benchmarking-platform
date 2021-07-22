@@ -42,7 +42,6 @@ class SequenceFileCtrl extends BaseCtrl {
             }).populate('datasets').fill('seqencesCount');
 
             const items = [];
-            console.log(docs);
             for (const doc of docs) {
                 const item = {
                     _id: doc._doc._id,
@@ -102,13 +101,11 @@ class SequenceFileCtrl extends BaseCtrl {
 
                     const updatedDataset = Object.assign({}, dataset);
                     //delete updatedDataset._id;
-                    console.log(updatedDataset);
                     await this.modelDataset.findOneAndUpdate({_id: dataset._id}, updatedDataset);
                 }
 
                 console.log(path.join(__dirname, '../uploads/') + uniqueFilename);
                 fasta.obj(path.join(__dirname, '../uploads/') + uniqueFilename).on('data', (s) => {
-                    console.log(s.id);
                     new Sequence({
                         seqId: s.id,
                         content: s.seq,
@@ -136,7 +133,6 @@ class SequenceFileCtrl extends BaseCtrl {
                 throw new Error('Invalid credentials');
             }
             const updatedObj = await this.model.findOneAndUpdate({_id: req.params.id}, req.body);
-            console.log('updated: ', updatedObj);
             const datasets = await this.modelDataset.find({
                 owner: decodedToken.user._id,
             });
@@ -159,7 +155,6 @@ class SequenceFileCtrl extends BaseCtrl {
 
                 const updatedDataset = Object.assign({}, dataset);
                 delete updatedDataset._id;
-                console.log(dataset);
                 await this.modelDataset.findOneAndUpdate({_id: dataset._id}, updatedDataset);
             }
 
@@ -202,7 +197,6 @@ class SequenceFileCtrl extends BaseCtrl {
 
                 const updatedDataset = Object.assign({}, dataset);
                 delete updatedDataset._id;
-                console.log(dataset);
                 await this.modelDataset.findOneAndUpdate({_id: dataset._id}, updatedDataset);
             }
 
