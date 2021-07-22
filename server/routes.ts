@@ -5,6 +5,7 @@ import UserCtrl from './controllers/user';
 import DatasetCtrl from './controllers/dataset';
 import SequenceFileCtrl from './controllers/sequence-file';
 import GermlineCtrl from './controllers/germline';
+import SelectorCtrl from './controllers/selector';
 import ToolCtrl from './controllers/tool';
 import JobCtrl from './controllers/job';
 import JobOperations from './controllers/jobOperations';
@@ -16,6 +17,7 @@ function setRoutes(app) {
     const datasetCtrl = new DatasetCtrl();
     const sequenceFileCtrl = new SequenceFileCtrl();
     const germlineCtrl = new GermlineCtrl();
+    const selectorCtrl = new SelectorCtrl();
     const jobCtrl = new JobCtrl();
     const toolCtrl = new ToolCtrl();
     const jobOps = new JobOperations();
@@ -60,6 +62,11 @@ function setRoutes(app) {
     router.route('/germline/:id').get(germlineCtrl.get);
     router.route('/germline/:id').put(germlineCtrl.update);
     router.route('/germline/:id').delete(germlineCtrl.delete);
+
+
+    // Selector
+    router.route('/selectors').get(selectorCtrl.getAll);
+    router.route('/selector').post(selectorCtrl.insert);
 
     // Jobs
     router.route('/jobs').get(jobCtrl.getAll);
