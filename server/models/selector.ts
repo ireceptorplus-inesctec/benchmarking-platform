@@ -14,11 +14,6 @@ const selectorSchema = new mongoose.Schema({
             ref: 'SelectorGenes'
         }
     ],
-    organism: {
-        type: String,
-        enum: GeneralConfigs.availableOrganisms,
-        required: true
-    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User',
