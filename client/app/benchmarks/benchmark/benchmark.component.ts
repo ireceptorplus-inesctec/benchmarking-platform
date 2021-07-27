@@ -60,7 +60,7 @@ export class BenchmarkComponent implements OnInit {
     }
 
     open(content) {
-        this.modalService.open(content).result.then((result) => {
+        this.modalService.open(content, {backdrop: 'static'}).result.then((result) => {
            this.submitBenchmarkJob();
         }, (reason) => {
             console.log('modal closed');

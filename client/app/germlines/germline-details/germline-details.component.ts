@@ -108,7 +108,7 @@ export class GermlineDetailsComponent implements OnInit {
     }
 
     open(content) {
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', backdrop: 'static'}).result.then((result) => {
             if (!!this.newFile._id) {
                 this.germlineService.addGermlineGenes(this.newFile).subscribe(
                     data => {

@@ -98,7 +98,7 @@ export class JobComponent implements OnInit {
     }
 
     open(content) {
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', backdrop: 'static'}).result.then((result) => {
             console.log(this.newJob);
             this.createJob();
             console.log('opened up a new job modal');

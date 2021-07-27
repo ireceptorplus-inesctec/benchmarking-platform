@@ -81,7 +81,7 @@ export class DatasetComponent implements OnInit {
     }
 
     open(content) {
-        this.modalService.open(content).result.then((result) => {
+        this.modalService.open(content, {backdrop: 'static'}).result.then((result) => {
             console.log(this.newDataset);
             if (!!this.newDataset._id) {
                 this.datasetService.editDataset(this.newDataset).subscribe(

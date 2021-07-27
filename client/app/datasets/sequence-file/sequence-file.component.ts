@@ -135,7 +135,7 @@ export class SequenceFileComponent implements OnInit {
 
 
     open(content) {
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', backdrop: 'static'}).result.then((result) => {
             if (!!this.newFile._id) {
                 this.sequenceFilesService.editSequenceFile(this.newFile).subscribe(
                     data => {

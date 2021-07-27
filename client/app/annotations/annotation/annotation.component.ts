@@ -135,7 +135,7 @@ export class AnnotationComponent implements OnInit {
     }
 
     open(content) {
-        this.modalService.open(content).result.then((result) => {
+        this.modalService.open(content, {backdrop: 'static'}).result.then((result) => {
             const job = this.job;
             job.target = job.target._id;
             job.tool = job.tool._id;

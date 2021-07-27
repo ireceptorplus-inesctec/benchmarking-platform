@@ -126,7 +126,7 @@ export class GermlineComponent implements OnInit {
     }
 
     open(content) {
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', backdrop: 'static'}).result.then((result) => {
             console.log(this.newGermline);
             this.saveOrEditGermline();
 
