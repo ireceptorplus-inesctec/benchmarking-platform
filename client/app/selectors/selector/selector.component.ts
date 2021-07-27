@@ -7,6 +7,12 @@ import {SelectorsService} from '../../services/selectors.service';
 import {ToastComponent} from '../../shared/toast/toast.component';
 import {AuthService} from '../../services/auth.service';
 
+enum SelectorType
+{
+    UMI = "umi",
+    PRIMER = "primer"
+}
+
 @Component({
     selector: 'app-selector',
     templateUrl: './selector.component.html',
@@ -58,7 +64,7 @@ export class SelectorComponent implements OnInit {
     uploadInput: EventEmitter<UploadInput>;
     humanizeBytes;
     dragOver: boolean;
-
+    type: SelectorType;
 
     constructor(private router: Router, private modalService: NgbModal, private selectorService: SelectorsService, public toast: ToastComponent, private authService: AuthService) {
         this.options = {concurrency: 1, maxUploads: 1, maxFileSize: SequenceConfigs.maxFileSize};
