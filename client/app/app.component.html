@@ -39,6 +39,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a routerLink="/selectors" class="nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
+                        <i class="fa fa-cubes"></i> Selectors
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a routerLink="/annotations" class="nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
                         <i class="fa fa-barcode"></i> Annotations
                     </a>
