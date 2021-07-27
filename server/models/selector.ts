@@ -2,6 +2,12 @@ import * as mongoose from 'mongoose';
 import GeneralConfigs from '../configurations/general';
 const Schema = mongoose.Schema;
 
+enum SelectorType
+{
+    UMI = "UMI",
+    PRIMER = "PRIMER"
+}
+
 const selectorSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -19,12 +25,17 @@ const selectorSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    type: {
+        type: String,
+        enum: SelectorType,
+        required: true
+    },
+    createdDate: { type: Date, default: Date.now },
     privacy: {
         type: String,
         enum: GeneralConfigs.selectors.privacies,
         required: true
-    },
-    createdDate: { type: Date, default: Date.now }
+    }
 });
 
 const Selector = mongoose.model('Selector', selectorSchema);
