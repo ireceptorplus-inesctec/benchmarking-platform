@@ -36,11 +36,14 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GermlineComponent } from './germlines/germline/germline.component';
 import { GermlineDetailsComponent } from './germlines/germline-details/germline-details.component';
+import { SelectorComponent } from './selectors/selector/selector.component';
+import { SelectorDetailsComponent } from './selectors/selector-details/selector-details.component';
 import { BenchmarkComponent } from './benchmarks/benchmark/benchmark.component';
 import { BenchmarkDetailsComponent } from './benchmarks/benchmark-details/benchmark-details.component';
 import { ToolComponent } from './tools/tool/tool.component';
 import { JobComponent } from './jobs/job/job.component';
 import {GermlinesService} from './services/germlines.service';
+import {SelectorsService} from './services/selectors.service';
 import {ToolsService} from './services/tools.service';
 
 
@@ -66,6 +69,8 @@ export function tokenGetter() {
         AnnotationDetailsComponent,
         GermlineComponent,
         GermlineDetailsComponent,
+        SelectorComponent,
+        SelectorDetailsComponent,
         BenchmarkComponent,
         BenchmarkDetailsComponent,
         ToolComponent,
@@ -95,6 +100,7 @@ export function tokenGetter() {
         DatasetService,
         SequenceFilesService,
         GermlinesService,
+        SelectorsService,
         ToolsService,
         JobsService
     ],

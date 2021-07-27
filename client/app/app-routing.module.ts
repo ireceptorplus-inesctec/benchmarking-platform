@@ -20,6 +20,8 @@ import {AnnotationComponent} from './annotations/annotation/annotation.component
 import {AnnotationDetailsComponent} from './annotations/annotation-details/annotation-details.component';
 import {GermlineComponent} from './germlines/germline/germline.component';
 import {GermlineDetailsComponent} from './germlines/germline-details/germline-details.component';
+import {SelectorComponent} from './selectors/selector/selector.component';
+import {SelectorDetailsComponent} from './selectors/selector-details/selector-details.component';
 import {BenchmarkComponent} from './benchmarks/benchmark/benchmark.component';
 import {BenchmarkDetailsComponent} from './benchmarks/benchmark-details/benchmark-details.component';
 import {ToolComponent} from './tools/tool/tool.component';
@@ -52,6 +54,8 @@ const routes: Routes = [
     {path: 'germlines/:id/vgenes', component: GermlineDetailsComponent, canActivate: [AuthGuardLogin]},
     {path: 'germlines/:id/dgenes', component: GermlineDetailsComponent, canActivate: [AuthGuardLogin]},
     {path: 'germlines/:id/jgenes', component: GermlineDetailsComponent, canActivate: [AuthGuardLogin]},
+
+    {path: 'selectors', component: SelectorComponent, canActivate: [AuthGuardLogin]},
 
     {path: 'benchmarks', component: BenchmarkComponent, canActivate: [AuthGuardLogin]},
     {path: 'benchmarks/:id', component: BenchmarkDetailsComponent, canActivate: [AuthGuardLogin]},
