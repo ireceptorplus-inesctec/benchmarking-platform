@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 enum SelectorType
 {
-    UMI = "umi",
-    PRIMER = "primer"
+    UMI = "UMI",
+    PRIMER = "PRIMER"
 }
 
 const selectorSchema = new mongoose.Schema({
@@ -27,7 +27,7 @@ const selectorSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: SelectorType,
+        enum: Object.values(SelectorType),
         required: true
     },
     createdDate: { type: Date, default: Date.now },
