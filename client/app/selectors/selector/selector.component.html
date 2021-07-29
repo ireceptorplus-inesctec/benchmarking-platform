@@ -32,6 +32,15 @@
                 <a class="dropdown-item" (click)="newSelector.privacy='Private'">Private</a>
             </div>
         </div>
+        <div class="btn-group dropright">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{!!newSelector.type ? selectorTypeToDisplayedType.get(newSelector.type) : 'Selector type'}}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="newSelector.type='umi'">UMI</a>
+                <a class="dropdown-item" (click)="newSelector.type='primer'">Primer</a>
+            </div>
+        </div>
 
     </div>
     <div class="modal-footer">

@@ -66,6 +66,11 @@ export class SelectorComponent implements OnInit {
     dragOver: boolean;
     type: SelectorType;
 
+    selectorTypeToDisplayedType = new Map([
+        ["umi", "UMI"],
+        ["primer", "Primer"]
+    ]); 
+
     constructor(private router: Router, private modalService: NgbModal, private selectorService: SelectorsService, public toast: ToastComponent, private authService: AuthService) {
         this.options = {concurrency: 1, maxUploads: 1, maxFileSize: SequenceConfigs.maxFileSize};
         this.files = []; // local uploading files array
