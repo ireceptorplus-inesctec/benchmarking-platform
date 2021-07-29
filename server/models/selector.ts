@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 enum SelectorType
 {
-    UMI = "UMI",
-    PRIMER = "PRIMER"
+    UMI = "umi",
+    PRIMER = "primer"
 }
 
 const selectorSchema = new mongoose.Schema({
