@@ -17,7 +17,6 @@ export class SelectorDetailsComponent implements OnInit {
     @ViewChild('addSelectorGenesModal') private fileEditModal: TemplateRef<any>;
     selector;
     selectorID;
-    action;
 
     genes = [];
 
@@ -73,8 +72,6 @@ export class SelectorDetailsComponent implements OnInit {
         let params = {id: this.route.snapshot.paramMap.get('id')};
         this.selectorID = params.id;
         const routeParts = this.router.url.split('/');
-        this.action = routeParts[routeParts.length - 1];
-        console.log(params.id, this.action);
         this.getSelector();
     }
 
@@ -83,8 +80,7 @@ export class SelectorDetailsComponent implements OnInit {
         this.newFile = {
             type: 'FASTA',
             chain: 'IGH',
-            selector: this.selectorID,
-            geneType: this.action
+            selector: this.selectorID
         };
     }
 
@@ -107,7 +103,7 @@ export class SelectorDetailsComponent implements OnInit {
                 this.selectorService.addSelectorGenes(this.newFile).subscribe(
                     data => {
                         this.resetNewFileObject();
-                        this.toast.setMessage('Added ' + this.action + ' to selector' + this.selector.name,
+                        this.toast.setMessage('Added gene to selector' + this.selector.name,
                             'success');
                         this.getSelector();
                     },

@@ -68,6 +68,7 @@ function setRoutes(app) {
     router.route('/selectors').get(selectorCtrl.getAll);
     router.route('/selector').post(selectorCtrl.insert);
     router.route('/selector/:id').get(selectorCtrl.get);
+    router.route('/selectorGenes').post(selectorCtrl.insertFile);
 
     // Jobs
     router.route('/jobs').get(jobCtrl.getAll);
