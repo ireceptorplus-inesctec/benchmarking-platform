@@ -56,6 +56,7 @@ const routes: Routes = [
     {path: 'germlines/:id/jgenes', component: GermlineDetailsComponent, canActivate: [AuthGuardLogin]},
 
     {path: 'selectors', component: SelectorComponent, canActivate: [AuthGuardLogin]},
+    {path: 'selectors/:id', component: SelectorDetailsComponent, canActivate: [AuthGuardLogin]},
 
     {path: 'benchmarks', component: BenchmarkComponent, canActivate: [AuthGuardLogin]},
     {path: 'benchmarks/:id', component: BenchmarkDetailsComponent, canActivate: [AuthGuardLogin]},

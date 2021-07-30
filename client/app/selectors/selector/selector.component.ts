@@ -94,7 +94,7 @@ export class SelectorComponent implements OnInit {
         console.log($event);
 
         if ($event.action === 'details') {
-            this.router.navigate(['/selectors', $event.data._id, 'vgenes']);
+            this.router.navigate(['/selectors', $event.data._id]);
         }
         if ($event.action === 'edit') {
             if (!!this.authService.currentUser && this.authService.currentUser._id === $event.data.owner) {
@@ -168,7 +168,7 @@ export class SelectorComponent implements OnInit {
                 data => {
                     console.log(data);
                     this.toast.setMessage('New selector created', 'success');
-                    window.location.reload();
+                    this.router.navigate(['/selector', data._id]);
                 },
                 error1 => {
                     console.log(error1);

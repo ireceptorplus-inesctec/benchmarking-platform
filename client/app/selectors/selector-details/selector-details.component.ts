@@ -14,14 +14,12 @@ import * as _ from 'underscore';
 })
 export class SelectorDetailsComponent implements OnInit {
 
-    @ViewChild('addGenesModal') private fileEditModal: TemplateRef<any>;
+    @ViewChild('addSelectorGenesModal') private fileEditModal: TemplateRef<any>;
     selector;
     selectorID;
     action;
 
-    vgenes = [];
-    dgenes = [];
-    jgenes = [];
+    genes = [];
 
     newFile;
     chains = ['IGH', 'IGK', 'IGL', 'TRA', 'TRB', 'TRD', 'TRG'];
@@ -72,14 +70,12 @@ export class SelectorDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
-        this.route.params.subscribe(params => {
-            this.selectorID = params.id;
-            const routeParts = this.router.url.split('/');
-            this.action = routeParts[routeParts.length - 1];
-            console.log(params.id, this.action);
-            this.getSelector();
-        });
+        let params = {id: this.route.snapshot.paramMap.get('id')};
+        this.selectorID = params.id;
+        const routeParts = this.router.url.split('/');
+        this.action = routeParts[routeParts.length - 1];
+        console.log(params.id, this.action);
+        this.getSelector();
     }
 
 
@@ -96,9 +92,7 @@ export class SelectorDetailsComponent implements OnInit {
         this.selectorService.getSelector({_id: this.selectorID}).subscribe(
             data => {
                 this.selector = data;
-                this.vgenes = _.where(this.selector.genes, {type: 'vgenes'});
-                this.dgenes = _.where(this.selector.genes, {type: 'dgenes'});
-                this.jgenes = _.where(this.selector.genes, {type: 'jgenes'});
+                this.genes =this.selector.genes;
                 this.resetNewFileObject();
             },
             error => {
