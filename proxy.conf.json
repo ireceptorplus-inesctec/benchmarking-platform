@@ -1,6 +1,0 @@
-{
-  "/api": {
-    "target": "http://nodedev:3000",
-    "secure": false
-  }
-}
