@@ -102,7 +102,7 @@ class SequenceFileCtrl extends BaseCtrl {
                 req.body.fileName = file.name;
 
                 const uniqueFilename = uuidv1() + '_' + file.name;
-                const uploadPath = this.uploadDirectory + uniqueFilename;
+                const uploadPath = path.join(this.uploadDirectory, uniqueFilename);
 
                 file.mv(uploadPath);
                 req.body.path = uniqueFilename;
@@ -194,7 +194,7 @@ class SequenceFileCtrl extends BaseCtrl {
                 throw new Error('Invalid credentials');
             }
 
-            let deletedSeqFile = await this.model.findOneAndRemove({_id: req.params.id});
+            let deletedSeqFile = await this.model.findOneAndRemove({ _id: req.params.id });
             const filePath = path.join(this.uploadDirectory, deletedSeqFile.path)
 
             const datasets = await this.modelDataset.find({
@@ -214,10 +214,10 @@ class SequenceFileCtrl extends BaseCtrl {
                         return value !== req.params.id;
                     });
 
-                    console.log('Remove file ' + filePath + ' from dataset ' + dataset._id);
 
                     // Delete file from the filesystem
                     try {
+                        console.log('Attempting to remove file ' + filePath + ' from dataset ' + dataset._id);
                         fs.unlinkSync(filePath);
                     }
                     catch(err) {
@@ -225,7 +225,7 @@ class SequenceFileCtrl extends BaseCtrl {
                     }
 
                     // Delete related Sequence entries
-                    await Sequence.deleteMany({ datasetId: dataset._id });
+                    await Sequence.deleteMany({ sourceFile: deletedSeqFile._id });
                 }
 
                 const updatedDataset = Object.assign({}, dataset);
