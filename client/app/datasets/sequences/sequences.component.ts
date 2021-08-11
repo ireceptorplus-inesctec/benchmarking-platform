@@ -23,16 +23,26 @@ export class SequencesComponent implements OnInit {
             seqId: {
                 title: 'Sequence ID'
             },
-            content: {
-                title: 'Sequence',
-                type: 'string',
-                width: '200px'
-            },
             sourceFile: {
                 title: 'File',
             },
             datasetId: {
                 title: 'Datasets'
+            },
+            content: {
+                title: 'Sequence',
+                type: 'html',
+                valuePrepareFunction: (sequence) => {
+                    var strSeq = "<span class=\"nucleic-scheme\">";
+
+                    for (var aa = 0; aa < sequence.length; ++aa) {
+                        strSeq += "<span class=\"" + sequence[aa]?.toLowerCase() + "\">" + sequence[aa] + "</span>";
+                    }
+
+                    strSeq += "</span>";
+
+                    return strSeq;
+                }
             }
         }
     };
@@ -47,7 +57,6 @@ export class SequencesComponent implements OnInit {
 
     getSequences(): void {
         this.sequenceService.getSequences().subscribe(data => {
-            console.log(data);
             this.sequences = data;
         }, error1 => {
             console.log(error1);

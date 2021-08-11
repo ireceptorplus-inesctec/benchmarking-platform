@@ -33,6 +33,7 @@
             <label class="upload-button">
                 <input
                         type="file"
+                        name="file"
                         ngFileSelect
                         [options]="options"
                         (uploadOutput)="onUploadOutput($event)"
@@ -48,11 +49,10 @@
                 {{ds.name}} {{ds.description.length>0? ' : '+ds.description : ''}}
             </label>
         </div>
-
-
     </div>
     <div class="modal-footer">
-        <button type="button" *ngIf="!newFile._id" class="btn btn-outline-dark" (click)="startUpload()">Ok</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+        <button type="button" *ngIf="!newFile._id" class="btn btn-outline-dark" (click)="startUpload()"><i class="fa fa-upload"></i> Start Upload</button>
         <button type="button" *ngIf="!!newFile._id" class="btn btn-outline-dark" (click)="modal.close(newFile)">Ok</button>
     </div>
 </ng-template>

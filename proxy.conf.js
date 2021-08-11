@@ -2,8 +2,6 @@ require('dotenv').config()
 var process = require("process");
 var API_URI = process.env.API_URI;
 
-console.log(API_URI);
-
 const PROXY_CONFIG = [
     {
         context: [
