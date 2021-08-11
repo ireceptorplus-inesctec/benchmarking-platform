@@ -1,6 +1,6 @@
 const SequenceConfigs = {
+    maxFileSize: 10000000000, // 10 GB
     acceptedFileTypes: ['FASTA', 'FASTQ'],
-    maxFileSize: 1000000000,
     jobStatusSteps: ['SUBMITTED', 'ERROR', 'IN PROGRESS', 'DONE']
 };
 

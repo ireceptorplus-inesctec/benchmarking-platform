@@ -61,25 +61,6 @@ class SequenceFileCtrl extends BaseCtrl {
         }
     };
 
-    neoInsert = async (req, res) =>  {
-        var busboy = new Busboy({ headers: req.headers });
-
-        req.pipe(req.busboy);
-
-        req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-           // ....
-           console.log("Here")
-       });
-
-        req.busboy.on('finish', function() {
-            console.log('Upload complete');
-            res.writeHead(200, { 'Connection': 'close' });
-            res.end("That's all folks!");
-        });
-
-       return req.pipe(busboy);
-    }
-
     // Insert
     insert = async (req, res) => {
         try {

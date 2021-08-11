@@ -21,7 +21,7 @@ app.use(fileUpload({
   createParentPath: true,
   useTempFiles: true,
   tempFileDir: path.join(__dirname, './uploads/tmp/'),
-  uploadTimeout: process.env.UPLOAD_TIMEOUT
+  uploadTimeout: parseInt(process.env.UPLOAD_TIMEOUT)
 }));
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
