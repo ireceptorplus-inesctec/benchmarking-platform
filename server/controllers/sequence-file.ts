@@ -8,10 +8,12 @@ import Sequence from '../models/sequence';
 
 const {v1: uuidv1} = require('uuid');
 const fasta = require('bionode-fasta');
+const fs = require('fs');
 
 class SequenceFileCtrl extends BaseCtrl {
     model = SequenceFile;
     modelDataset = Dataset;
+    uploadDirectory = path.join(__dirname, '../uploads/');
 
     // Get all
     getAll = async (req, res) => {
@@ -59,7 +61,6 @@ class SequenceFileCtrl extends BaseCtrl {
         }
     };
 
-
     // Insert
     insert = async (req, res) => {
         try {
@@ -70,9 +71,7 @@ class SequenceFileCtrl extends BaseCtrl {
                 throw new Error('Invalid credentials');
             }
 
-
             if (!!req.files.file) {
-
                 const datasets = await this.modelDataset.find({
                     owner: decodedToken.user._id,
                     _id: {
@@ -80,11 +79,13 @@ class SequenceFileCtrl extends BaseCtrl {
                     }
                 });
 
-
                 const file = req.files.file;
                 req.body.fileName = file.name;
+
                 const uniqueFilename = uuidv1() + '_' + file.name;
-                file.mv(path.join(__dirname, '../uploads/') + uniqueFilename);
+                const uploadPath = path.join(this.uploadDirectory, uniqueFilename);
+
+                file.mv(uploadPath);
                 req.body.path = uniqueFilename;
 
                 const obj = await new this.model(req.body).save();
@@ -95,6 +96,7 @@ class SequenceFileCtrl extends BaseCtrl {
                     if (!dataset.files) {
                         dataset.files = [];
                     }
+
                     if (!dataset.files.includes(objFile._id)) {
                         dataset.files.push(objFile._id);
                     }
@@ -104,8 +106,7 @@ class SequenceFileCtrl extends BaseCtrl {
                     await this.modelDataset.findOneAndUpdate({_id: dataset._id}, updatedDataset);
                 }
 
-                console.log(path.join(__dirname, '../uploads/') + uniqueFilename);
-                fasta.obj(path.join(__dirname, '../uploads/') + uniqueFilename).on('data', (s) => {
+                fasta.obj(uploadPath).on('data', (s) => {
                     new Sequence({
                         seqId: s.id,
                         content: s.seq,
@@ -174,7 +175,8 @@ class SequenceFileCtrl extends BaseCtrl {
                 throw new Error('Invalid credentials');
             }
 
-            await this.model.findOneAndRemove({_id: req.params.id});
+            let deletedSeqFile = await this.model.findOneAndRemove({ _id: req.params.id });
+            const filePath = path.join(this.uploadDirectory, deletedSeqFile.path)
 
             const datasets = await this.modelDataset.find({
                 owner: decodedToken.user._id,
@@ -182,24 +184,36 @@ class SequenceFileCtrl extends BaseCtrl {
 
             for (const ds of datasets) {
                 const dataset = ds._doc;
+
                 if (!dataset.files) {
                     dataset.files = [];
                 }
 
-                // TODO
-                // remove file from datasets, if datasets was removed from file
+                // Find and remove related files and delete Sequence entries in the model
                 if (dataset.files.includes(req.params.id)) {
                     dataset.files = dataset.files.filter((value, index, arr) => {
                         return value !== req.params.id;
                     });
-                    console.log('Remove file ' + req.params.id + ' from dataset ' + dataset._id, dataset.files);
+
+
+                    // Delete file from the filesystem
+                    try {
+                        console.log('Attempting to remove file ' + filePath + ' from dataset ' + dataset._id);
+                        fs.unlinkSync(filePath);
+                    }
+                    catch(err) {
+                        console.error(err);
+                    }
+
+                    // Delete related Sequence entries
+                    await Sequence.deleteMany({ sourceFile: deletedSeqFile._id });
                 }
 
                 const updatedDataset = Object.assign({}, dataset);
                 delete updatedDataset._id;
+
                 await this.modelDataset.findOneAndUpdate({_id: dataset._id}, updatedDataset);
             }
-
 
             res.sendStatus(200);
         } catch (err) {

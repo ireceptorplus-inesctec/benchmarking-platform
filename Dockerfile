@@ -13,5 +13,6 @@ COPY package.json .
 RUN npm i -g @angular/cli typescript@~3.8.3
 RUN npm i
 COPY . .
+RUN mv .env.example .env
 
 CMD [ "npm", "run", "dev" ]

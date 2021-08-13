@@ -8,3 +8,29 @@ body {
 .input-group {
   margin-bottom: 15px;
 }
+
+.nucleic-table .ng2-smart-title {
+  min-width: 150px;
+}
+
+.nucleic-scheme {
+  font-family: "Courier New";
+  font-weight: 600;
+  word-break: break-all;
+
+  .a {
+    color: #3a39ff;
+  }
+
+  .c {
+    color: #fe0000;
+  }
+
+  .g {
+    color: #029d01;
+  }
+
+  .t, .u {
+   color: #fea000;
+  }
+}

@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h4>Sequence files <span class="pull-right">
+        <h4>Manage Sequence files <span class="pull-right">
             <button class="btn btn-success" (click)="open(fileEditModal)"><i
                     class="fa fa-upload"></i> Upload new file</button>
         </span></h4>
@@ -31,12 +31,12 @@
             </div>
 
             <label class="upload-button">
-                <input
-                        type="file"
-                        ngFileSelect
-                        [options]="options"
-                        (uploadOutput)="onUploadOutput($event)"
-                        [uploadInput]="uploadInput" />
+                <input type="file"
+                       name="file"
+                       ngFileSelect
+                       [options]="options"
+                       (uploadOutput)="onUploadOutput($event)"
+                       [uploadInput]="uploadInput" />
             </label>
         </section>
 
@@ -48,11 +48,16 @@
                 {{ds.name}} {{ds.description.length>0? ' : '+ds.description : ''}}
             </label>
         </div>
-
-
+        <div class="progress-report" *ngIf="uploadProgress">
+            <div class="progress">
+                <div class="progress-bar" style="width: {{ uploadProgress ? uploadProgress.data.percentage : 0 }}%" role="progressbar"></div>
+            </div>
+            <small>{{ uploadProgress?.data.speedHuman }}</small>
+        </div>
     </div>
     <div class="modal-footer">
-        <button type="button" *ngIf="!newFile._id" class="btn btn-outline-dark" (click)="startUpload()">Ok</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+        <button type="button" *ngIf="!newFile._id" class="btn btn-outline-dark" (click)="startUpload()"><i class="fa fa-upload"></i> Start Upload</button>
         <button type="button" *ngIf="!!newFile._id" class="btn btn-outline-dark" (click)="modal.close(newFile)">Ok</button>
     </div>
 </ng-template>

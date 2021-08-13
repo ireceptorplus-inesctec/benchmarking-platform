@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {ToastComponent} from '../../shared/toast/toast.component';
 import {SequenceFilesService} from '../../services/sequence-files.service';
 
-import {UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions} from 'ngx-uploader';
+import {UploadOutput, UploadInput, UploadFile, UploadProgress, UploaderOptions} from 'ngx-uploader';
 import SequenceConfigs from '../../../../server/configurations/sequence';
 import {split} from 'ts-node';
 
@@ -61,7 +61,7 @@ export class SequenceFileComponent implements OnInit {
     formData: FormData;
     files: UploadFile[];
     uploadInput: EventEmitter<UploadInput>;
-    humanizeBytes;
+    uploadProgress: UploadProgress = null;
     dragOver: boolean;
 
 
@@ -72,10 +72,13 @@ export class SequenceFileComponent implements OnInit {
         private router: Router, public toast: ToastComponent) {
         this.resetNewFileObject();
 
-        this.options = {concurrency: 1, maxUploads: 1, maxFileSize: SequenceConfigs.maxFileSize};
+        this.options = {
+            concurrency: 1,
+            maxUploads: 1,
+            maxFileSize: SequenceConfigs.maxFileSize
+        };
         this.files = []; // local uploading files array
         this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
-        this.humanizeBytes = humanizeBytes;
     }
 
     ngOnInit(): void {
@@ -133,7 +136,6 @@ export class SequenceFileComponent implements OnInit {
         }
     }
 
-
     open(content) {
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', backdrop: 'static'}).result.then((result) => {
             if (!!this.newFile._id) {
@@ -174,12 +176,13 @@ export class SequenceFileComponent implements OnInit {
             this.newFile.datasets = [];
             this.open(this.fileEditModal);
         }
-
     }
-
 
     onUploadOutput(output: UploadOutput): void {
         console.log(output);
+
+        this.uploadProgress = output?.file?.progress;
+
         switch (output.type) {
             case 'allAddedToQueue':
                 // uncomment this if you want to auto upload files when added
@@ -215,15 +218,21 @@ export class SequenceFileComponent implements OnInit {
                 this.dragOver = false;
                 break;
             case 'done':
+                this.uploadProgress = null;
                 this.modalService.dismissAll();
                 this.getSequenceFiles();
                 break;
         }
     }
 
+    onUploadProgress(progress: UploadProgress): void {
+        console.log(progress)
+    }
+
     startUpload(): void {
         const event: UploadInput = {
             type: 'uploadAll',
+            //url: '/api/sequenceFile',
             url: '/api/sequenceFile',
             method: 'POST',
             headers: {'Authorization': 'JWT ' + localStorage.getItem('token')},  // <----  set headers
