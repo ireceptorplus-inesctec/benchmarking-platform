@@ -6,7 +6,7 @@ import {ToastComponent} from '../../shared/toast/toast.component';
 import {SequenceFilesService} from '../../services/sequence-files.service';
 
 import {UploadOutput, UploadInput, UploadFile, UploadProgress, UploaderOptions} from 'ngx-uploader';
-import SequenceConfigs from '../../../../server/configurations/sequence';
+import SequenceConfigs from '../../../../configurations/sequence';
 import {split} from 'ts-node';
 
 @Component({

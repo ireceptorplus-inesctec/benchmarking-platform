@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/
 import {Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions} from 'ngx-uploader';
-import SequenceConfigs from '../../../../server/configurations/sequence';
+import SequenceConfigs from '../../../../configurations/sequence';
 import {SelectorsService} from '../../services/selectors.service';
 import {ToastComponent} from '../../shared/toast/toast.component';
 import {AuthService} from '../../services/auth.service';

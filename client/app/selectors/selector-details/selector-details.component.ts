@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SelectorsService} from '../../services/selectors.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions} from 'ngx-uploader';
-import SequenceConfigs from '../../../../server/configurations/sequence';
+import SequenceConfigs from '../../../../configurations/sequence';
 import {ToastComponent} from '../../shared/toast/toast.component';
 import * as _ from 'underscore';
 
