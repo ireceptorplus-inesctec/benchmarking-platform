@@ -49,8 +49,6 @@
     "d3-dsv": "^2.0.0",
     "datalib": "^1.9.3",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-fileupload": "^1.1.7-alpha.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
