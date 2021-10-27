@@ -2,7 +2,7 @@ version: '3'
 
 services:
     front-end:
-        build: .
+        build: client
         ports:
         - "4200:4200"
         volumes:

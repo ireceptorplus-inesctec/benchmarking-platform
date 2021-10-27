@@ -7,7 +7,6 @@ WORKDIR /app
 COPY package*.json /app/
 
 # Install dependecies
-RUN npm i papaparse
 RUN npm install
 
 # Get all the code needed to run the app
