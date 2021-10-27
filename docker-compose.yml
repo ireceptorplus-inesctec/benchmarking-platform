@@ -1,26 +1,16 @@
 version: '3'
 
 services:
-    mongodb:
-        image: mongo:latest
-        container_name: mongodb-benchmarking-platform
-        environment:
-        - PUID=1000
-        - PGID=1000
-        volumes:
-        - mongo_benchmarking_platform:/data/db
-        ports:
-        - 27017:27017
-    nodedev:
+    front-end:
         build: .
-        volumes:
-        - .:/usr/src/service
-        - nodemodules:/usr/src/service/node_modules
-        - /var/run/docker.sock:/var/run/docker.sock
-        working_dir: /usr/src/service
         ports:
-        - 3000:3000
-        - 4200:4200
+        - "4200:4200"
+        volumes:
+        - ./pwa:/app
+        - /app/node_modules/
+        env_file:
+        - ./.env
+        
 volumes:
     mongo_benchmarking_platform:
     nodemodules:

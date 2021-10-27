@@ -1,18 +1,20 @@
-FROM node:14 AS node_base
+FROM node:current-alpine
 
-RUN echo "NODE Version:" && node --version
-RUN echo "NPM Version:" && npm --version
+# Change directory so that our commands run inside this new directory
+WORKDIR /app
 
-FROM docker:dind
+# Copy dependency definitions
+COPY package*.json /app/
 
+# Install dependecies
+RUN npm i papaparse
+RUN npm install
 
-COPY --from=node_base . .
+# Get all the code needed to run the app
+COPY . /app/
 
-WORKDIR /usr/src/service
-COPY package.json .
-RUN npm i -g @angular/cli typescript@~3.8.3
-RUN npm i
-COPY . .
-RUN mv .env.example .env
+# Expose the port the app runs in
+EXPOSE 4200
 
-CMD [ "npm", "run", "dev" ]
+# Serve the app
+CMD ["npm", "start"]
