@@ -16,15 +16,15 @@
     "test": "ng test",
     "testbe": "--exit",
     "lint": "ng lint",
-    "linthtml": "htmlhint \"client/**/*.html\"",
-    "lintscss": "sass-lint \"client/**/*.scss\" -v",
+    "linthtml": "htmlhint \"src/**/*.html\"",
+    "lintscss": "sass-lint \"src/**/*.scss\" -v",
     "lintbe": "tslint server/**/**.ts{,x}",
     "e2e": "ng e2e",
     "postinstall": "cd ./node_modules/protractor && npm i webdriver-manager@latest"
   },
   "private": true,
   "dependencies": {
-    "@akveo/ng2-completer": "^9.0.1",
+    "ng2-completer": "^9.0.1",
     "@angular/animations": "~9.1.0",
     "@angular/cdk": "^10.1.0",
     "@angular/common": "~9.1.0",
