@@ -11,8 +11,8 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build",
-    "dev": "\"ng serve  --host 0.0.0.0 --proxy-config proxy.conf.js --open\"",
-    "prod": "\"ng build --aot --prod",
+    "dev": "ng serve  --host 0.0.0.0 --proxy-config proxy.conf.js",
+    "prod": "ng build --aot --prod",
     "test": "ng test",
     "testbe": "--exit",
     "lint": "ng lint",

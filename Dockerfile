@@ -1,19 +1,20 @@
-FROM node:current-alpine
+FROM node:14
 
-# Change directory so that our commands run inside this new directory
-WORKDIR /app
+WORKDIR /benchmarking_platform
 
 # Copy dependency definitions
-COPY package*.json /app/
+COPY . .
 
 # Install dependecies
+RUN npm i -g @angular/cli typescript
 RUN npm install
 
 # Get all the code needed to run the app
-COPY . /app/
 
 # Expose the port the app runs in
 EXPOSE 4200
 
 # Serve the app
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
+
+#CMD ["./infinite_loop.sh"]
