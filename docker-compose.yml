@@ -6,8 +6,7 @@ services:
         ports:
         - "4200:4200"
         volumes:
-        - ./pwa:/app
-        - /app/node_modules/
+        - ./src:/benchmarking_platform/src
         env_file:
         - ./.env
         
