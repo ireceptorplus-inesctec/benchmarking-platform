@@ -10,11 +10,11 @@ export class DatasetService {
     }
 
     getDatasets(): Observable<any[]> {
-        return this.http.get<any[]>('/api/datasets');
+        return this.http.get<any[]>('/api/dataset');
     }
 
     getDatasetsCondensed(): Observable<any[]> {
-        return this.http.get<any[]>('/api/datasetsCondensed');
+        return this.http.get<any[]>('/api/dataset');
     }
 
     addDataset(dataset: any): Observable<any> {
