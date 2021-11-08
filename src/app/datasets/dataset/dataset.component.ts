@@ -40,6 +40,9 @@ export class DatasetComponent implements OnInit {
             perPage: 20
         },
         columns: {
+            uuid: {
+                title: 'UUID'
+            },
             name: {
                 title: 'Name'
             },
