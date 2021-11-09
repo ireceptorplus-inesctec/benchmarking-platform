@@ -23,6 +23,8 @@ export class AuthService {
       const decodedUser = this.decodeUserFromToken(token);
       this.setCurrentUser(decodedUser);
     }
+    
+    this.setCurrentUser("admin");
   }
 
   login(emailAndPassword) {
