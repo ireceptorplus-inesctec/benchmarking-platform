@@ -8,6 +8,7 @@ import {SequenceFilesService} from '../../services/sequence-files.service';
 import {UploadOutput, UploadInput, UploadFile, UploadProgress, UploaderOptions} from 'ngx-uploader';
 import SequenceConfigs from '../../../../configurations/sequence';
 import {split} from 'ts-node';
+import { DatasetModel } from 'src/app/models/dataset.model';
 
 @Component({
     selector: 'app-sequence-file',
@@ -56,6 +57,7 @@ export class SequenceFileComponent implements OnInit {
     sequenceFiles;
     datasets = [];
     newFile;
+    newDataset: DatasetModel = new DatasetModel();
 
     options: UploaderOptions;
     formData: FormData;

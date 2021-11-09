@@ -20,7 +20,24 @@
         </button>
     </div>
     <div class="modal-body">
+  
+
         <section *ngIf="!newFile._id">
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Dataset name</span>
+                </div>
+                <input type="text" class="form-control" placeholder="new dataset" aria-label="New dataset name" aria-describedby="basic-addon1" [(ngModel)]="newDataset.name">
+            </div>
+            
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon2">Description</span>
+                </div>
+                <input type="text" class="form-control" placeholder="description" aria-label="New dataset description" aria-describedby="basic-addon2" [(ngModel)]="newDataset.description">
+            </div>
+
             <h5>Add sequence file from your computer</h5>
             <div class="drop-container"
                  ngFileDrop
@@ -40,14 +57,6 @@
             </label>
         </section>
 
-        <h5>Assign this file to datasets:</h5>
-        <div class="form-check" *ngFor="let ds of datasets" (click)="addFileToDataset(newFile, ds)">
-            <input class="form-check-input" type="radio" [checked]="fileBelongsToDataset(newFile, ds)"
-                   id="{{ds._id}}">
-            <label class="form-check-label" for="{{ds._id}}">
-                {{ds.name}} {{ds.description.length>0? ' : '+ds.description : ''}}
-            </label>
-        </div>
         <div class="progress-report" *ngIf="uploadProgress">
             <div class="progress">
                 <div class="progress-bar" style="width: {{ uploadProgress ? uploadProgress.data.percentage : 0 }}%" role="progressbar"></div>
