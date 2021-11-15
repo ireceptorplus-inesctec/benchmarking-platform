@@ -92,7 +92,7 @@ export class SequenceFileComponent implements OnInit {
 
     resetNewFileObject(): void {
         this.newFile = {
-            datasets: [],
+            dataset: DatasetModel,
             type: 'FASTA'
         };
     }
@@ -175,7 +175,6 @@ export class SequenceFileComponent implements OnInit {
         }
         if ($event.action === 'reassign') {
             this.newFile = $event.data;
-            this.newFile.datasets = [];
             this.open(this.fileEditModal);
         }
     }
@@ -232,10 +231,11 @@ export class SequenceFileComponent implements OnInit {
     }
 
     startUpload(): void {
+        this.newFile.dataset = JSON.stringify(this.newFile.dataset);
         const event: UploadInput = {
             type: 'uploadAll',
             //url: '/api/sequenceFile',
-            url: '/api/sequenceFile',
+            url: '/api/dataset',
             method: 'POST',
             headers: {'Authorization': 'JWT ' + localStorage.getItem('token')},  // <----  set headers
             data: this.newFile,
