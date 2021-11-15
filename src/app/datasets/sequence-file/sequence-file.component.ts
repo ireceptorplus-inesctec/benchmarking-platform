@@ -46,7 +46,7 @@ export class SequenceFileComponent implements OnInit {
             name: {
                 title: 'Name'
             },
-            createdDate: {
+            creationDate: {
                 title: 'Creation date',
             }
         }
@@ -172,6 +172,7 @@ export class SequenceFileComponent implements OnInit {
         }
         if ($event.action === 'reassign') {
             this.newFile = $event.data;
+            this.newFile.datasets = [];
             this.open(this.fileEditModal);
         }
     }
@@ -228,6 +229,8 @@ export class SequenceFileComponent implements OnInit {
     }
 
     startUpload(): void {
+        console.log("newfile")
+        console.log(this.newFile)
         this.newFile.dataset = JSON.stringify(this.newFile.dataset);
         const event: UploadInput = {
             type: 'uploadAll',
