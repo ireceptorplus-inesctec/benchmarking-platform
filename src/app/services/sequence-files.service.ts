@@ -9,7 +9,7 @@ export class SequenceFilesService {
   constructor(private http: HttpClient) { }
 
   getSequenceFiles(): Observable<any[]> {
-    return this.http.get<any[]>('/api/sequenceFiles');
+    return this.http.get<any[]>('/api/dataset');
   }
 
   addSequenceFile(seqFile: any): Observable<any> {
