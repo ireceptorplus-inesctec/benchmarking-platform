@@ -40,17 +40,14 @@ export class SequenceFileComponent implements OnInit {
             perPage: 20
         },
         columns: {
+            uuid: {
+                title: 'UUID'
+            },
             name: {
-                title: 'Filename'
+                title: 'Name'
             },
-            type: {
-                title: 'Type'
-            },
-            uploadDate: {
-                title: 'Upload date',
-            },
-            datasets: {
-                title: 'Belongs to dataset'
+            createdDate: {
+                title: 'Creation date',
             }
         }
     };
