@@ -229,9 +229,10 @@ export class SequenceFileComponent implements OnInit {
     }
 
     startUpload(): void {
+        this.newFile.dataset = this.newDataset;
+        this.newFile.dataset = JSON.stringify(this.newFile.dataset);
         console.log("newfile")
         console.log(this.newFile)
-        this.newFile.dataset = JSON.stringify(this.newFile.dataset);
         const event: UploadInput = {
             type: 'uploadAll',
             //url: '/api/sequenceFile',
