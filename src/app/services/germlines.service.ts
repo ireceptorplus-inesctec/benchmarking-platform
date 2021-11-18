@@ -10,7 +10,7 @@ export class GermlinesService {
     }
 
     getGermlines(): Observable<any[]> {
-        return this.http.get<any[]>('/api/germlines');
+        return this.http.get<any[]>('/api/germline');
     }
 
     addGermline(germline: any): Observable<any> {
