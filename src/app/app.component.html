@@ -34,6 +34,11 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a routerLink="/sequenceFiles" class="nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
+                        <i class="fa fa-table"></i> Datasets
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a routerLink="/germlines" class="nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
                         <i class="fa fa-share-alt"></i> Germlines
                     </a>
@@ -41,6 +46,11 @@
                 <li class="nav-item">
                     <a routerLink="/selectors" class="nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
                         <i class="fa fa-cubes"></i> Selectors
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/traceability_data" class="nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
+                        <i class="fa fa-cubes"></i> Traceability Data
                     </a>
                 </li>
                 <li class="nav-item">

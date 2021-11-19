@@ -58,6 +58,10 @@ const routes: Routes = [
     {path: 'selectors', component: SelectorComponent, canActivate: [AuthGuardLogin]},
     {path: 'selectors/:id', component: SelectorDetailsComponent, canActivate: [AuthGuardLogin]},
 
+    
+    {path: 'traceability_data', component: DatasetComponent, canActivate: [AuthGuardLogin]},
+    {path: 'traceability_data/:id', component: DatasetDetailsComponent, canActivate: [AuthGuardLogin]},
+
     {path: 'benchmarks', component: BenchmarkComponent, canActivate: [AuthGuardLogin]},
     {path: 'benchmarks/:id', component: BenchmarkDetailsComponent, canActivate: [AuthGuardLogin]},
 
