@@ -43,6 +43,9 @@ export class SequenceFileComponent implements OnInit {
             uuid: {
                 title: 'UUID'
             },
+            originalFileName: {
+                title: 'Original file name'
+            },
             name: {
                 title: 'Name'
             },
