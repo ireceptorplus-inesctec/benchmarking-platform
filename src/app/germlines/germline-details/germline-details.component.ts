@@ -6,7 +6,6 @@ import {UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions} f
 import SequenceConfigs from '../../../../configurations/sequence';
 import {ToastComponent} from '../../shared/toast/toast.component';
 import * as _ from 'underscore';
-import { ModalFileUpload } from 'src/app/modal-file-upload/modal-file-upload.component';
 
 @Component({
     selector: 'app-germline-details',
