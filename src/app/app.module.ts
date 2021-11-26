@@ -45,6 +45,7 @@ import { JobComponent } from './jobs/job/job.component';
 import {GermlinesService} from './services/germlines.service';
 import {SelectorsService} from './services/selectors.service';
 import {ToolsService} from './services/tools.service';
+import { ModalFileUpload } from './modal-file-upload/modal-file-upload.component';
 
 
 export function tokenGetter() {
@@ -75,6 +76,7 @@ export function tokenGetter() {
         BenchmarkDetailsComponent,
         ToolComponent,
         JobComponent,
+        ModalFileUpload
     ],
     imports: [
         AppRoutingModule,

@@ -1,18 +1,18 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {DatasetService} from '../../services/datasets.service';
+import {DatasetService} from '../services/datasets.service';
 import {Router} from '@angular/router';
-import {ToastComponent} from '../../shared/toast/toast.component';
-import {SequenceFilesService} from '../../services/sequence-files.service';
+import {ToastComponent} from '../shared/toast/toast.component';
+import {SequenceFilesService} from '../services/sequence-files.service';
 
 import {UploadOutput, UploadInput, UploadFile, UploadProgress, UploaderOptions} from 'ngx-uploader';
-import SequenceConfigs from '../../../../configurations/sequence';
+import SequenceConfigs from '../../../configurations/sequence';
 import {split} from 'ts-node';
 import { DatasetModel } from 'src/app/models/dataset.model';
 import { MetadataModel } from '../models/metadata.model';
 
 @Component({
-    selector: 'app-sequence-file',
+    selector: 'modal-file-upload',
     templateUrl: './modal-file-upload.component.html',
     styleUrls: ['./modal-file-upload.component.scss']
 })
