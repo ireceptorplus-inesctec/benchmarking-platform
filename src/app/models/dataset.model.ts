@@ -1,6 +1,6 @@
-import { DataModel } from "./data.model";
+import { MetadataModel } from "./metadata.model";
 
-export class DatasetModel extends DataModel {
+export class DatasetModel extends MetadataModel {
     uuid: string;
     name: string;
     description: string;
