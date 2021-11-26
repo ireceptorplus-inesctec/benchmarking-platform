@@ -9,54 +9,37 @@ import {UploadOutput, UploadInput, UploadFile, UploadProgress, UploaderOptions} 
 import SequenceConfigs from '../../../../configurations/sequence';
 import {split} from 'ts-node';
 import { DatasetModel } from 'src/app/models/dataset.model';
+import { MetadataModel } from '../models/metadata.model';
 
-@Component({
-    selector: 'app-sequence-file',
-    templateUrl: './sequence-file.component.html',
-    styleUrls: ['./sequence-file.component.scss']
-})
-export class SequenceFileComponent implements OnInit {
-    @ViewChild('fileEditModal') private fileEditModal: TemplateRef<any>;
 
-    tableSettings = {
-        actions: {
-            edit: false,
-            delete: false,
-            add: false,
-            custom: [
-                {
-                    name: 'delete',
-                    title: '<i class="fa fa-times" title="Delete"></i> Delete'
-                },
-                {
-                    name: 'reassign',
-                    title: '<i class="fa fa-chain" title="Assing"></i> Reassing'
-                },
-            ],
-            position: 'right'
-        },
-        pager: {
-            display: true,
-            perPage: 20
-        },
-        columns: {
-            uuid: {
-                title: 'UUID'
-            },
-            originalFileName: {
-                title: 'Original file name'
-            },
-            name: {
-                title: 'Name'
-            },
-            creationDate: {
-                title: 'Creation date',
-            }
-        }
-    };
+export class SequenceFileComponent
+{
+   
+   /**
+     * The name of the model to be shown in the front end
+    */
+    modelName: String;
+
+    /**
+     * The name of the model to be shown in the front end with the first letter capital.
+     */
+     modelNameCapital: String;
+
+     /**
+      * The name of the model to be shown in the front end with the first letter capital.
+      */
+      modelNamePlural: String;
+      
+     /**
+      * The name of the model to be shown in the front end with the first letter capital.
+      */
+      modelNamePluralAndCapital: String;
+
+    model: MetadataModel;
+
     sequenceFiles;
     datasets = [];
-    newFile;
+    metadata: MetadataModel;
     newDataset: DatasetModel = new DatasetModel();
 
     options: UploaderOptions;
@@ -66,9 +49,7 @@ export class SequenceFileComponent implements OnInit {
     uploadProgress: UploadProgress = null;
     dragOver: boolean;
 
-
     constructor(
-        private modalService: NgbModal,
         private datasetService: DatasetService,
         private sequenceFilesService: SequenceFilesService,
         private router: Router, public toast: ToastComponent) {
@@ -83,45 +64,9 @@ export class SequenceFileComponent implements OnInit {
         this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     }
 
-    whenDone(): void {
-        this.modalService.dismissAll();
-        this.getSequenceFiles();
-    }
-
-    ngOnInit(): void {
-        this.getDatasets();
-        this.getSequenceFiles();
-        this.resetNewFileObject();
-    }
-
 
     resetNewFileObject(): void {
-        this.newFile = {
-            dataset: DatasetModel,
-            type: 'FASTA'
-        };
-    }
-
-    getDatasets(): void {
-        this.datasetService.getDatasets().subscribe(
-            data => {
-                this.datasets = data;
-            },
-            error1 => {
-                console.log(error1);
-            }
-        );
-    }
-
-    getSequenceFiles(): void {
-        this.sequenceFilesService.getSequenceFiles().subscribe(
-            data => {
-                this.sequenceFiles = data;
-            },
-            error1 => {
-                console.log(error1);
-            }
-        );
+        this.metadata = new MetadataModel();
     }
 
     fileBelongsToDataset(file, dataset): Boolean {
@@ -143,49 +88,7 @@ export class SequenceFileComponent implements OnInit {
         }
     }
 
-    open(content) {
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', backdrop: 'static'}).result.then((result) => {
-            if (!!this.newFile._id) {
-                this.sequenceFilesService.editSequenceFile(this.newFile).subscribe(
-                    data => {
-                        this.resetNewFileObject();
-                        this.getSequenceFiles();
-                    },
-                    error1 => {
-                        console.log(error1);
-                        this.resetNewFileObject();
-                    }
-                );
-
-            }
-        }, (reason) => {
-            console.log('modal closed');
-            this.resetNewFileObject();
-        });
-    }
-
-    tableEvent($event) {
-        console.log($event);
-        if ($event.action === 'delete') {
-            if (confirm('Are you sure you want to delete file ' + $event.data.name)) {
-                this.sequenceFilesService.deleteSequenceFile($event.data).subscribe(
-                    data => {
-                        this.getSequenceFiles();
-                    },
-                    error1 => {
-                        console.log(error1);
-                    }
-                );
-            }
-        }
-        if ($event.action === 'reassign') {
-            this.newFile = $event.data;
-            this.newFile.datasets = [];
-            this.open(this.fileEditModal);
-        }
-    }
-
-    onUploadOutput(output: UploadOutput): void {
+    onUploadOutput(output: UploadOutput, whenDone: Function): void {
         console.log(output);
 
         this.uploadProgress = output?.file?.progress;
@@ -226,8 +129,7 @@ export class SequenceFileComponent implements OnInit {
                 break;
             case 'done':
                 this.uploadProgress = null;
-                this.modalService.dismissAll();
-                this.getSequenceFiles();
+                whenDone();
                 break;
         }
     }
@@ -237,17 +139,14 @@ export class SequenceFileComponent implements OnInit {
     }
 
     startUpload(): void {
-        this.newFile.dataset = this.newDataset;
-        this.newFile.dataset = JSON.stringify(this.newFile.dataset);
-        console.log("newfile")
-        console.log(this.newFile)
+        //this.metadataAndFile = JSON.stringify(this.metadataAndFile);
         const event: UploadInput = {
             type: 'uploadAll',
             //url: '/api/sequenceFile',
             url: '/api/dataset',
             method: 'POST',
             headers: {'Authorization': 'JWT ' + localStorage.getItem('token')},  // <----  set headers
-            data: this.newFile,
+            data: this.metadata,
             includeWebKitFormBoundary: true // <----  set WebKitFormBoundary
         };
 
