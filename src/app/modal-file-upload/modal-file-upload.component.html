@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card-header">
-        <h4>Manage Datasets <span class="pull-right">
+        <h4>Manage {{modelNamePluralAndCapital}} <span class="pull-right">
             <button class="btn btn-success" (click)="open(fileEditModal)"><i
-                    class="fa fa-upload"></i> Upload new dataset</button>
+                    class="fa fa-upload"></i> Upload new {{modelName}}</button>
         </span></h4>
     </div>
     <div class="card-body">
@@ -26,16 +26,16 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Dataset name</span>
+                    <span class="input-group-text" id="basic-addon1">{{modelNamePluralAndCapital}} name</span>
                 </div>
-                <input type="text" class="form-control" placeholder="new dataset" aria-label="New dataset name" aria-describedby="basic-addon1" [(ngModel)]="newDataset.name">
+                <input type="text" class="form-control" placeholder="new {{modelName}}" aria-label="New {{modelName}} name" aria-describedby="basic-addon1" [(ngModel)]="newDataset.name">
             </div>
             
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon2">Description</span>
                 </div>
-                <input type="text" class="form-control" placeholder="description" aria-label="New dataset description" aria-describedby="basic-addon2" [(ngModel)]="newDataset.description">
+                <input type="text" class="form-control" placeholder="description" aria-label="New {{modelName}} description" aria-describedby="basic-addon2" [(ngModel)]="newDataset.description">
             </div>
 
             <h5>Add sequence file from your computer</h5>

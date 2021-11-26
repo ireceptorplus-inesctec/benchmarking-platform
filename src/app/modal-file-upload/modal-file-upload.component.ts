@@ -64,7 +64,17 @@ export class ModalFileUpload implements OnInit {
     /**
      * The name of the model to be shown in the front end with the first letter capital.
      */
-    modelNameCapital: String;
+     modelNameCapital: String;
+
+     /**
+      * The name of the model to be shown in the front end with the first letter capital.
+      */
+      modelNamePlural: String;
+      
+     /**
+      * The name of the model to be shown in the front end with the first letter capital.
+      */
+      modelNamePluralAndCapital: String;
 
     model: MetadataModel;
 
