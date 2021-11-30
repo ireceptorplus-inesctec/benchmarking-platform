@@ -5,6 +5,7 @@ import SequenceConfigs from '../../../configurations/sequence';
 import {split} from 'ts-node';
 import { DatasetModel } from 'src/app/models/dataset.model';
 import { MetadataModel } from '../models/metadata.model';
+import { SequenceFileComponent } from '../datasets/sequence-file/sequence-file.component';
 
 
 export class FileUploadHelper
@@ -63,7 +64,7 @@ export class FileUploadHelper
         this.metadata = new MetadataModel();
     }
 
-    onUploadOutput(output: UploadOutput, whenDone: Function): void {
+    onUploadOutput(output: UploadOutput, component: SequenceFileComponent): void {
         console.log(output);
 
         this.uploadProgress = output?.file?.progress;
@@ -104,7 +105,7 @@ export class FileUploadHelper
                 break;
             case 'done':
                 this.uploadProgress = null;
-                whenDone();
+                component.whenDone();
                 break;
         }
     }
@@ -114,6 +115,7 @@ export class FileUploadHelper
     }
 
     startUpload(): void {
+        console.log("using new fileupload helper")
         //this.metadataAndFile = JSON.stringify(this.metadataAndFile);
         let requestForm;
         requestForm = {

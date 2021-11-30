@@ -9,6 +9,7 @@ import {UploadOutput, UploadInput, UploadFile, UploadProgress, UploaderOptions} 
 import SequenceConfigs from '../../../../configurations/sequence';
 import {split} from 'ts-node';
 import { DatasetModel } from 'src/app/models/dataset.model';
+import { FileUploadHelper } from 'src/app/file-upload-helper/file-upload.helper';
 
 @Component({
     selector: 'app-sequence-file',
@@ -65,6 +66,8 @@ export class SequenceFileComponent implements OnInit {
     uploadInput: EventEmitter<UploadInput>;
     uploadProgress: UploadProgress = null;
     dragOver: boolean;
+
+    fileUploadHelper: FileUploadHelper = new FileUploadHelper();
 
 
     constructor(
@@ -186,50 +189,7 @@ export class SequenceFileComponent implements OnInit {
     }
 
     onUploadOutput(output: UploadOutput): void {
-        console.log(output);
-
-        this.uploadProgress = output?.file?.progress;
-
-        switch (output.type) {
-            case 'allAddedToQueue':
-                // uncomment this if you want to auto upload files when added
-                // const event: UploadInput = {
-                //   type: 'uploadAll',
-                //   url: '/upload',
-                //   method: 'POST',
-                //   data: { foo: 'bar' }
-                // };
-                // this.uploadInput.emit(event);
-                break;
-            case 'addedToQueue':
-                if (typeof output.file !== 'undefined') {
-                    this.files.push(output.file);
-                }
-                break;
-            case 'uploading':
-                if (typeof output.file !== 'undefined') {
-                    // update current data in files array for uploading file
-                    const index = this.files.findIndex(file => typeof output.file !== 'undefined' && file.id === output.file.id);
-                    this.files[index] = output.file;
-                }
-                break;
-            case 'removed':
-                // remove file from array when removed
-                this.files = this.files.filter((file: UploadFile) => file !== output.file);
-                break;
-            case 'dragOver':
-                this.dragOver = true;
-                break;
-            case 'dragOut':
-            case 'drop':
-                this.dragOver = false;
-                break;
-            case 'done':
-                this.uploadProgress = null;
-                this.modalService.dismissAll();
-                this.getSequenceFiles();
-                break;
-        }
+        this.fileUploadHelper.onUploadOutput(output, this);
     }
 
     onUploadProgress(progress: UploadProgress): void {
