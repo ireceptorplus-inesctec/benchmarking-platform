@@ -44,6 +44,8 @@ export class FileUploadHelper
     uploadProgress: UploadProgress = null;
     dragOver: boolean;
 
+    newFile;
+
     constructor() {
         this.resetNewFileObject();
 
@@ -113,8 +115,9 @@ export class FileUploadHelper
 
     startUpload(): void {
         //this.metadataAndFile = JSON.stringify(this.metadataAndFile);
-        let metadataToUpload = {
-            "metadata": this.metadata
+        let requestForm;
+        requestForm = {
+            metadata: this.metadata
         };
         const event: UploadInput = {
             type: 'uploadAll',
@@ -122,7 +125,7 @@ export class FileUploadHelper
             url: '/api/dataset',
             method: 'POST',
             headers: {'Authorization': 'JWT ' + localStorage.getItem('token')},  // <----  set headers
-            data: metadataToUpload,
+            data: requestForm,
             includeWebKitFormBoundary: true // <----  set WebKitFormBoundary
         };
 
