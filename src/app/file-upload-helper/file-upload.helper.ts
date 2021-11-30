@@ -33,15 +33,11 @@ export class FileUploadHelper
 
     model: MetadataModel;
 
-    sequenceFiles;
-    datasets = [];
     metadata: MetadataModel;
     newDataset: DatasetModel = new DatasetModel();
 
-    options: UploaderOptions;
     formData: FormData;
     files: UploadFile[];
-    uploadInput: EventEmitter<UploadInput>;
     uploadProgress: UploadProgress = null;
     dragOver: boolean;
 
@@ -50,14 +46,8 @@ export class FileUploadHelper
     constructor() {
         this.resetNewFileObject();
 
-        this.options = {
-            concurrency: 1,
-            maxUploads: 1,
-            maxFileSize: SequenceConfigs.maxFileSize
-        };
         this.files = []; // local uploading files array
-        this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
-    }
+   }
 
 
     resetNewFileObject(): void {
@@ -132,17 +122,4 @@ export class FileUploadHelper
 
         emitter.emit(event);
     }
-
-    cancelUpload(id: string): void {
-        this.uploadInput.emit({type: 'cancel', id: id});
-    }
-
-    removeFile(id: string): void {
-        this.uploadInput.emit({type: 'remove', id: id});
-    }
-
-    removeAllFiles(): void {
-        this.uploadInput.emit({type: 'removeAll'});
-    }
-
 }
