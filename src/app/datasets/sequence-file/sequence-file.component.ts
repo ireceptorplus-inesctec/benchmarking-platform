@@ -197,7 +197,7 @@ export class SequenceFileComponent implements OnInit {
     }
 
     startUpload(): void {
-        this.fileUploadHelper.startUpload();
+        this.fileUploadHelper.startUpload(this.uploadInput);
     }
 
     cancelUpload(id: string): void {

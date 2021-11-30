@@ -114,7 +114,7 @@ export class FileUploadHelper
         console.log(progress)
     }
 
-    startUpload(): void {
+    startUpload(emitter: EventEmitter<UploadInput>): void {
         console.log("using new fileupload helper")
         //this.metadataAndFile = JSON.stringify(this.metadataAndFile);
         let requestForm: any = {
@@ -130,7 +130,7 @@ export class FileUploadHelper
             includeWebKitFormBoundary: true // <----  set WebKitFormBoundary
         };
 
-        this.uploadInput.emit(event);
+        emitter.emit(event);
     }
 
     cancelUpload(id: string): void {
