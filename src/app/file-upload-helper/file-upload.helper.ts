@@ -117,8 +117,7 @@ export class FileUploadHelper
     startUpload(): void {
         console.log("using new fileupload helper")
         //this.metadataAndFile = JSON.stringify(this.metadataAndFile);
-        let requestForm;
-        requestForm = {
+        let requestForm: any = {
             metadata: this.metadata
         };
         const event: UploadInput = {

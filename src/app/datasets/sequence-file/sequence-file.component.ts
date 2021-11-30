@@ -197,21 +197,7 @@ export class SequenceFileComponent implements OnInit {
     }
 
     startUpload(): void {
-        this.newFile.dataset = this.newDataset;
-        this.newFile.dataset = JSON.stringify(this.newFile.dataset);
-        console.log("newfile")
-        console.log(this.newFile)
-        const event: UploadInput = {
-            type: 'uploadAll',
-            //url: '/api/sequenceFile',
-            url: '/api/dataset',
-            method: 'POST',
-            headers: {'Authorization': 'JWT ' + localStorage.getItem('token')},  // <----  set headers
-            data: this.newFile,
-            includeWebKitFormBoundary: true // <----  set WebKitFormBoundary
-        };
-
-        this.uploadInput.emit(event);
+        this.fileUploadHelper.startUpload();
     }
 
     cancelUpload(id: string): void {
