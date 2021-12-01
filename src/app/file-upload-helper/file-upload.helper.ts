@@ -37,7 +37,7 @@ export class FileUploadHelper
     newDataset: DatasetModel = new DatasetModel();
 
     formData: FormData;
-    files: UploadFile[];
+    file: UploadFile;
     uploadProgress: UploadProgress = null;
     dragOver: boolean;
 
@@ -45,8 +45,6 @@ export class FileUploadHelper
 
     constructor() {
         this.resetNewFileObject();
-
-        this.files = []; // local uploading files array
    }
 
 
@@ -72,19 +70,17 @@ export class FileUploadHelper
                 break;
             case 'addedToQueue':
                 if (typeof output.file !== 'undefined') {
-                    this.files.push(output.file);
+                    this.file = output.file;
                 }
                 break;
             case 'uploading':
                 if (typeof output.file !== 'undefined') {
-                    // update current data in files array for uploading file
-                    const index = this.files.findIndex(file => typeof output.file !== 'undefined' && file.id === output.file.id);
-                    this.files[index] = output.file;
+                    this.file = output.file;
                 }
                 break;
             case 'removed':
                 // remove file from array when removed
-                this.files = this.files.filter((file: UploadFile) => file !== output.file);
+                this.file = null;
                 break;
             case 'dragOver':
                 this.dragOver = true;
