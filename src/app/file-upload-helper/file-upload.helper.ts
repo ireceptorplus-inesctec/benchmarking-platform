@@ -41,8 +41,6 @@ export class FileUploadHelper
     uploadProgress: UploadProgress = null;
     dragOver: boolean;
 
-    newFile;
-
     constructor() {
         this.resetNewFileObject();
    }
