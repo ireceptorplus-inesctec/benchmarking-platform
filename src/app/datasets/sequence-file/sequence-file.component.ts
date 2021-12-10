@@ -85,13 +85,6 @@ export class SequenceFileComponent extends FileUploadModal {
         this.resetNewFileObject();
     }
     
-    resetNewFileObject(): void {
-        this.newFile = {
-            dataset: DatasetModel,
-            type: 'FASTA'
-        };
-    }
-
     getDatasets(): void {
         this.datasetService.getDatasets().subscribe(
             data => {
@@ -144,7 +137,7 @@ export class SequenceFileComponent extends FileUploadModal {
     }
 
     editObject(): Observable<any> {
-        return this.sequenceFilesService.editSequenceFile(this.newFile);
+        return this.sequenceFilesService.editSequenceFile(this.metadata);
     }
 
     deleteObject($event: any): Observable<any> {

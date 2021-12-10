@@ -34,7 +34,6 @@ export abstract class FileUploadModal implements OnInit
       modelNamePluralAndCapital: String;
 
     metadata: MetadataModel;
-    newDataset: DatasetModel = new DatasetModel();
 
     formData: FormData;
     file: UploadFile;
@@ -42,9 +41,6 @@ export abstract class FileUploadModal implements OnInit
     dragOver: boolean;
 
     uploadInput: EventEmitter<UploadInput>;
-
-    newFile;
-
     
     files: UploadFile[];
     
@@ -147,16 +143,11 @@ export abstract class FileUploadModal implements OnInit
                 );
             }
         }
-        if ($event.action === 'reassign') {
-            this.newFile = $event.data;
-            this.newFile.datasets = [];
-            this.open(this.fileEditModal);
-        }
     }
 
     open(content) {
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', backdrop: 'static'}).result.then((result) => {
-            if (!!this.newFile._id) {
+            if (!!this.metadata.uuid) {
                 this.editObject().subscribe(
                     data => {
                         this.resetNewFileObject();
