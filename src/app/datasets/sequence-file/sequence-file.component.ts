@@ -64,7 +64,6 @@ export class SequenceFileComponent extends FileUploadModal {
     options: UploaderOptions;
     formData: FormData;
     files: UploadFile[];
-    uploadInput: EventEmitter<UploadInput>;
     uploadProgress: UploadProgress = null;
     dragOver: boolean;
 
@@ -157,20 +156,5 @@ export class SequenceFileComponent extends FileUploadModal {
         return this.sequenceFilesService.deleteSequenceFile($event.data);
     }
 
-    onUploadProgress(progress: UploadProgress): void {
-        console.log(progress)
-    }
-
-    cancelUpload(id: string): void {
-        this.uploadInput.emit({type: 'cancel', id: id});
-    }
-
-    removeFile(id: string): void {
-        this.uploadInput.emit({type: 'remove', id: id});
-    }
-
-    removeAllFiles(): void {
-        this.uploadInput.emit({type: 'removeAll'});
-    }
 
 }

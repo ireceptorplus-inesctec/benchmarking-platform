@@ -41,6 +41,8 @@ export abstract class FileUploadModal implements OnInit
     uploadProgress: UploadProgress = null;
     dragOver: boolean;
 
+    uploadInput: EventEmitter<UploadInput>;
+
     newFile;
 
 
@@ -57,10 +59,6 @@ export abstract class FileUploadModal implements OnInit
         this.metadata = new MetadataModel();
     }
     
-    abstract fetchMetadata(): void;
-    abstract editObject(): Observable<any>;
-    abstract deleteObject($event: any): Observable<any>;
-
     onUploadOutput(output: UploadOutput): void {
         console.log(output);
 
@@ -171,5 +169,22 @@ export abstract class FileUploadModal implements OnInit
             console.log('modal closed');
             this.resetNewFileObject();
         });
+    }
+
+    abstract fetchMetadata(): void;
+    abstract editObject(): Observable<any>;
+
+    abstract deleteObject($event: any): Observable<any>;
+
+    cancelUpload(id: string): void {
+        this.uploadInput.emit({type: 'cancel', id: id});
+    }
+
+    removeFile(id: string): void {
+        this.uploadInput.emit({type: 'remove', id: id});
+    }
+
+    removeAllFiles(): void {
+        this.uploadInput.emit({type: 'removeAll'});
     }
 }
