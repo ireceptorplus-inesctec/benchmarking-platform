@@ -33,7 +33,7 @@ export abstract class FileUploadModal implements OnInit
       */
       modelNamePluralAndCapital: String;
 
-    metadata: MetadataModel = new MetadataModel();
+    metadata: MetadataModel;
     newDataset: DatasetModel = new DatasetModel();
 
     formData: FormData;
