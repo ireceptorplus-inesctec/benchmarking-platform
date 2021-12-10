@@ -1,14 +1,16 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {UploadOutput, UploadInput, UploadFile, UploadProgress, UploaderOptions} from 'ngx-uploader';
 import SequenceConfigs from '../../../configurations/sequence';
 import {split} from 'ts-node';
 import { DatasetModel } from 'src/app/models/dataset.model';
 import { MetadataModel } from '../models/metadata.model';
-import { SequenceFileComponent } from '../datasets/sequence-file/sequence-file.component';
+
+import { Observable } from 'rxjs';
 
 
-export class FileUploadHelper
+export abstract class FileUploadModal implements OnInit
 {
    
    /**
@@ -31,8 +33,6 @@ export class FileUploadHelper
       */
       modelNamePluralAndCapital: String;
 
-    model: MetadataModel;
-
     metadata: MetadataModel;
     newDataset: DatasetModel = new DatasetModel();
 
@@ -41,16 +41,27 @@ export class FileUploadHelper
     uploadProgress: UploadProgress = null;
     dragOver: boolean;
 
-    constructor() {
+    newFile;
+
+
+    constructor(
+        protected modalService: NgbModal) {
         this.resetNewFileObject();
    }
 
+   @ViewChild('fileEditModal') private fileEditModal: TemplateRef<any>;
+
+   abstract ngOnInit(): void ;
 
     resetNewFileObject(): void {
         this.metadata = new MetadataModel();
     }
+    
+    abstract fetchMetadata(): void;
+    abstract editObject(): Observable<any>;
+    abstract deleteObject($event: any): Observable<any>;
 
-    onUploadOutput(output: UploadOutput, component: SequenceFileComponent): void {
+    onUploadOutput(output: UploadOutput): void {
         console.log(output);
 
         this.uploadProgress = output?.file?.progress;
@@ -89,16 +100,19 @@ export class FileUploadHelper
                 break;
             case 'done':
                 this.uploadProgress = null;
-                component.whenDone();
+                this.modalService.dismissAll();
+                this.whenDone();
                 break;
         }
     }
+
+    abstract whenDone(): void;
 
     onUploadProgress(progress: UploadProgress): void {
         console.log(progress)
     }
 
-    startUpload(emitter: EventEmitter<UploadInput>): void {
+    public startUpload(emitter: EventEmitter<UploadInput>): void {
         console.log("using new fileupload helper")
         //this.metadataAndFile = JSON.stringify(this.metadataAndFile);
         let requestForm: any = {
@@ -115,5 +129,47 @@ export class FileUploadHelper
         };
 
         emitter.emit(event);
+    }
+
+    tableEvent($event) {
+        console.log($event);
+        if ($event.action === 'delete') {
+            if (confirm('Are you sure you want to delete file ' + $event.data.name)) {
+                this.deleteObject($event).subscribe(
+                    data => {
+                        this.fetchMetadata();
+                    },
+                    error1 => {
+                        console.log(error1);
+                    }
+                );
+            }
+        }
+        if ($event.action === 'reassign') {
+            this.newFile = $event.data;
+            this.newFile.datasets = [];
+            this.open(this.fileEditModal);
+        }
+    }
+
+    open(content) {
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', backdrop: 'static'}).result.then((result) => {
+            if (!!this.newFile._id) {
+                this.editObject().subscribe(
+                    data => {
+                        this.resetNewFileObject();
+                        this.fetchMetadata();
+                    },
+                    error1 => {
+                        console.log(error1);
+                        this.resetNewFileObject();
+                    }
+                );
+
+            }
+        }, (reason) => {
+            console.log('modal closed');
+            this.resetNewFileObject();
+        });
     }
 }
