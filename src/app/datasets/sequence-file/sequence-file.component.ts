@@ -65,7 +65,7 @@ export class SequenceFileComponent extends FileUploadModal {
         private datasetService: DatasetService,
         private sequenceFilesService: SequenceFilesService,
         private router: Router, public toast: ToastComponent) {
-            super(modalService);
+            super(modalService, '/api/dataset');
         this.resetNewFileObject();
 
         this.options = {

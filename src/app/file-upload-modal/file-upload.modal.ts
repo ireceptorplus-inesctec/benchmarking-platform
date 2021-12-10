@@ -48,7 +48,8 @@ export abstract class FileUploadModal implements OnInit
 
 
     constructor(
-        protected modalService: NgbModal) {
+        protected modalService: NgbModal,
+        protected apiPostFileUrl: string) {
         this.resetNewFileObject();
    }
 
@@ -119,7 +120,7 @@ export abstract class FileUploadModal implements OnInit
         const event: UploadInput = {
             type: 'uploadAll',
             //url: '/api/sequenceFile',
-            url: '/api/dataset',
+            url: this.apiPostFileUrl,
             method: 'POST',
             headers: {'Authorization': 'JWT ' + localStorage.getItem('token')},  // <----  set headers
             data: requestForm,
