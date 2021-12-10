@@ -16,20 +16,11 @@ export abstract class FileUploadModal implements OnInit
     */
     modelName: String;
 
-    /**
-     * The name of the model to be shown in the front end with the first letter capital.
-     */
-     modelNameCapital: String;
-
      /**
       * The name of the model to be shown in the front end with the first letter capital.
       */
       modelNamePlural: String;
       
-     /**
-      * The name of the model to be shown in the front end with the first letter capital.
-      */
-      modelNamePluralAndCapital: String;
 
     metadata: MetadataModel;
 
