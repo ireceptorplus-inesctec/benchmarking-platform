@@ -33,7 +33,7 @@ export abstract class FileUploadModal implements OnInit
       */
       modelNamePluralAndCapital: String;
 
-    metadata: MetadataModel;
+    metadata: MetadataModel = new MetadataModel();
     newDataset: DatasetModel = new DatasetModel();
 
     formData: FormData;
@@ -44,6 +44,11 @@ export abstract class FileUploadModal implements OnInit
     uploadInput: EventEmitter<UploadInput>;
 
     newFile;
+
+    
+    files: UploadFile[];
+    
+    options: UploaderOptions;
 
 
     constructor(
@@ -111,11 +116,10 @@ export abstract class FileUploadModal implements OnInit
     }
 
     public startUpload(emitter: EventEmitter<UploadInput>): void {
-        console.log("using new fileupload helper")
-        //this.metadataAndFile = JSON.stringify(this.metadataAndFile);
         let requestForm: any = {
-            metadata: this.metadata
+            metadata: JSON.stringify(this.metadata)
         };
+        console.log(requestForm)
         const event: UploadInput = {
             type: 'uploadAll',
             //url: '/api/sequenceFile',

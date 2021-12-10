@@ -58,14 +58,7 @@ export class SequenceFileComponent extends FileUploadModal {
     };
     sequenceFiles;
     datasets = [];
-    newFile;
-    newDataset: DatasetModel = new DatasetModel();
 
-    options: UploaderOptions;
-    formData: FormData;
-    files: UploadFile[];
-    uploadProgress: UploadProgress = null;
-    dragOver: boolean;
 
     constructor(
         modalService: NgbModal,
