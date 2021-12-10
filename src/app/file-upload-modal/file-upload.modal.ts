@@ -2,9 +2,7 @@ import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {UploadOutput, UploadInput, UploadFile, UploadProgress, UploaderOptions} from 'ngx-uploader';
-import SequenceConfigs from '../../../configurations/sequence';
 import {split} from 'ts-node';
-import { DatasetModel } from 'src/app/models/dataset.model';
 import { MetadataModel } from '../models/metadata.model';
 
 import { Observable } from 'rxjs';
@@ -119,7 +117,6 @@ export abstract class FileUploadModal implements OnInit
         console.log(requestForm)
         const event: UploadInput = {
             type: 'uploadAll',
-            //url: '/api/sequenceFile',
             url: this.apiPostFileUrl,
             method: 'POST',
             headers: {'Authorization': 'JWT ' + localStorage.getItem('token')},  // <----  set headers
