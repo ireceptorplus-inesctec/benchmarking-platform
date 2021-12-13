@@ -14,7 +14,7 @@
 
 <ng-template #fileEditModal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title capitalize" id="modal-basic-title">{{!!metadata.uuid ? 'Edit' : 'Upload'}} {{modelName}}</h4>
+        <h4 class="modal-title" id="modal-basic-title">{{!!metadata.uuid ? 'Edit' : 'Upload'}} {{modelName}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
             <span aria-hidden="true">×</span>
         </button>
@@ -26,7 +26,7 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text capitalize" id="basic-addon1">{{modelName}} name</span>
+                    <span class="input-group-text" class="" id="basic-addon1">{{modelName}} name</span>
                 </div>
                 <input type="text" class="form-control" placeholder="new dataset" aria-label="New dataset name" aria-describedby="basic-addon1" [(ngModel)]="metadata.name">
             </div>

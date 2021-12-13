@@ -21,10 +21,8 @@ import {LogoutComponent} from './account-management/logout/logout.component';
 import {AccountComponent} from './account-management/account/account.component';
 import {AdminComponent} from './administration/admin/admin.component';
 import {NotFoundComponent} from './not-found/not-found.component';
-import { DatasetComponent } from './datasets/dataset/dataset.component';
 import { SequenceFileComponent } from './datasets/sequence-file/sequence-file.component';
 import { SequencesComponent } from './datasets/sequences/sequences.component';
-import { DatasetDetailsComponent } from './datasets/dataset-details/dataset-details.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DatasetService} from './services/datasets.service';
@@ -61,10 +59,8 @@ export function tokenGetter() {
         AccountComponent,
         AdminComponent,
         NotFoundComponent,
-        DatasetComponent,
         SequenceFileComponent,
         SequencesComponent,
-        DatasetDetailsComponent,
         AnnotationComponent,
         AnnotationDetailsComponent,
         GermlineComponent,

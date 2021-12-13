@@ -12,8 +12,6 @@ import {LogoutComponent} from './account-management/logout/logout.component';
 import {AccountComponent} from './account-management/account/account.component';
 import {AdminComponent} from './administration/admin/admin.component';
 import {NotFoundComponent} from './not-found/not-found.component';
-import {DatasetComponent} from './datasets/dataset/dataset.component';
-import {DatasetDetailsComponent} from './datasets/dataset-details/dataset-details.component';
 import {SequenceFileComponent} from './datasets/sequence-file/sequence-file.component';
 import {SequencesComponent} from './datasets/sequences/sequences.component';
 import {AnnotationComponent} from './annotations/annotation/annotation.component';
@@ -37,8 +35,6 @@ const routes: Routes = [
 
     {path: 'admin', component: AdminComponent, canActivate: [AuthGuardAdmin]},
 
-    {path: 'datasets', component: DatasetComponent, canActivate: [AuthGuardLogin]},
-    {path: 'datasets/:id', component: DatasetDetailsComponent, canActivate: [AuthGuardLogin]},
     {path: 'sequenceFiles', component: SequenceFileComponent, canActivate: [AuthGuardLogin]},
     {path: 'sequences', component: SequencesComponent, canActivate: [AuthGuardLogin]},
     {path: 'sequences/dataset/:datasetId', component: SequencesComponent, canActivate: [AuthGuardLogin]},
@@ -59,9 +55,6 @@ const routes: Routes = [
     {path: 'selectors/:id', component: SelectorDetailsComponent, canActivate: [AuthGuardLogin]},
 
     
-    {path: 'traceability_data', component: DatasetComponent, canActivate: [AuthGuardLogin]},
-    {path: 'traceability_data/:id', component: DatasetDetailsComponent, canActivate: [AuthGuardLogin]},
-
     {path: 'benchmarks', component: BenchmarkComponent, canActivate: [AuthGuardLogin]},
     {path: 'benchmarks/:id', component: BenchmarkDetailsComponent, canActivate: [AuthGuardLogin]},
 
